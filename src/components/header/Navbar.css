@@ -1,0 +1,41 @@
+.navbar{
+    position: relative;
+    padding: 0 9vw;
+    height: 7vh;
+    line-height: 7vh;
+    font-size: 1.1vw;
+    color: lightyellow;
+}
+.navbar__brand{
+    font-size: 1.5vw;
+}
+.navbar__menu{
+    list-style: none;
+    display: flex;
+}
+.navbar__menu li{
+    margin: 0 1vw !important;
+    transition: all 0.3s;
+}
+.navbar__menu li:hover{ 
+    color: #808080;
+    cursor: pointer;
+}
+@media only screen and (max-width: 974px) {
+    .navbar__menu{
+        display: none !important;
+    }
+    .navbar__brand{
+        font-size: 2vw;
+    }
+    .navbar{
+        height: 5vh;
+        line-height: 5vh;
+    }
+}
+@media only screen and (max-width: 376px) {
+    .navbar__brand{
+        font-size: 2vw;
+        transform: translateY(-17%);
+    }
+}

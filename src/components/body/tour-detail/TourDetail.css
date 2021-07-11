@@ -1,0 +1,86 @@
+.tour-detail{
+    width:1534px;
+    margin: auto;
+    margin-top: 4vw;
+}
+.tour-detail__img{
+    width: 95%;
+    border-radius: 10px;
+}
+.tour-detail__header{
+    font-size: 1.6vw;
+}
+.detail__info{
+    font-size: 0.9vw;
+    border: 1px solid rgba(0,0,0,.15);
+    padding: 1vw 1.2vw;
+}
+.detail__info__header{
+    font-size: 1.1vw;
+    color: #1a345f;
+}
+.detail__info__price{
+    margin-top: 1.5vw;
+    background-color: #276de0;
+    color: white;
+    text-align: center;
+    padding: 0.5vw 0;
+}
+.detail__info_price_btn{
+    border: none;
+    outline: none;
+    background-color: #21bd6e;
+    width: 95%;
+    margin-top: 1vw;
+    padding: 6px 0;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    color: white;
+    transition: all 0.4s;
+}
+.detail__info_price_btn:hover{
+    background-color: white;
+    color: #21bd6e;
+}
+.detail__info__describe{
+    width: 95%;
+    margin-top: 50px;
+    margin: auto;
+}
+.detail__info__schedule{
+    width: 95%;
+    margin: auto;
+}
+.detail__info__price-raw{
+    font-size: smaller;
+    text-decoration: line-through;
+    color: #c8c8ce;
+}
+@media only screen and (max-width: 1534px){
+    .tour-detail{
+        width: 90%;
+        font-size: 0.2vw;
+    }
+    .detail__info__price{
+        width: 100%;
+    }
+    .detail__info{
+        font-size: 0.2vw;
+    }
+    
+}
+@media only screen and (max-width:986px) {
+    .detail__info{
+        margin-top: 20px;
+    }
+    .tour-detail__img{
+        width: 100%;
+    }
+    .detail__info__price{
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    .tour-detail{
+        margin-top: 30px;
+    }
+}

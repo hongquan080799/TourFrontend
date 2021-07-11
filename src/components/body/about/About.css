@@ -1,0 +1,12 @@
+.about{
+    padding: 2vw 10vw;
+    margin-top: 1vw;
+    font-size: 0.85vw;
+}
+.about__container{
+    border: 0.112rem solid #808080;
+    padding: 0.7vw 1vw;
+    margin: 0.6vw;
+    border-radius: 20px;
+    margin-top: 15px;
+}

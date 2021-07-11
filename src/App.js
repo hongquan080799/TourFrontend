@@ -1,23 +1,52 @@
-import logo from './logo.svg';
 import './App.css';
-
+import Header from './components/header/Header'
+import Carousel from './components/body/slider/Carousel'
+import ListTour from './components/body/list-tour/ListTour'
+import About from './components/body/about/About'
+import Bottom from './components/footer/Bottom'
+import TourDetail from './components/body/tour-detail/TourDetail'
+import {BrowserRouter as Router,Route,Switch,useLocation} from 'react-router-dom'
+import {useEffect} from 'react'
+import Admin from './components/admin'
+import Login from './components/account/Login'
 function App() {
+  function ScrollToTop(props){
+    const { pathname } = useLocation();
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+    return props.children
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Switch>
+        <ScrollToTop>
+          <Route path="/" exact>
+            <Header />
+            <Carousel />
+            <ListTour />
+            {/* <TourDetail /> */}
+            <About />
+            <Bottom />
+          </Route>
+          <Route path="/detail" exact>
+            <Header />
+            <Carousel />
+            <TourDetail />
+            <About />
+            <Bottom />
+          </Route>
+          <Route path="/admin" exact>
+            <Admin />
+          </Route>
+          <Route path="/login" exact>
+            <Login />
+          </Route>
+
+        </ScrollToTop>
+        </Switch>
+      </Router>
     </div>
   );
 }
