@@ -1,7 +1,12 @@
 import React,{useState,useEffect,useRef} from 'react'
 import TourManagement from './TourManagement'
+import TourDetail from './TourDetail'
 import './index.css'
+import userIcon from './icon.png'
+import { useParams, useHistory } from 'react-router-dom'
 export default function Index() {
+    const history = useHistory()
+    const {id, tuyenID} = useParams()
     const [on,setOn] = useState(false);
     const slideRef = useRef(null)
     useEffect(()=>{
@@ -11,12 +16,31 @@ export default function Index() {
         setOn(!on);
         slideRef.current.classList.toggle("dashboard-on");
     }
+    const render = ()=>{
+        let page = <TourManagement />
+        switch(id){
+            case 'index':{
+                page = <TourManagement />
+                break;
+            }
+            case 'tuyen':{
+                page = <TourManagement />
+                break;
+            }
+            case 'tour':{
+                page = <TourDetail matuyen = {tuyenID} />
+                break;
+            }
+            
+        }
+        return page
+    }
     return (
         <div className="admin">
             <div className="dashboard" ref={slideRef}>
                 <p className={on?"dashboard__admin dashboard__admin-on":'dashboard__admin'}><span className="dashboard__admin-icon"><i class="fas fa-users-cog"></i></span> {!on?'ADMIN PAGE':''}</p>
                 <hr className="hr-custom"/>
-                <p className={on?'dashboard__item dashboard__item-on active':'dashboard__item active'} >
+                <p className={on?'dashboard__item dashboard__item-on active':'dashboard__item active'} onClick={()=> history.push('/admin/tuyen')} >
                     <span className="dashboard__item-icon"><i class="fas fa-list-alt"></i></span> {!on?'Tour Management':''}
                 </p>
                 <hr className="hr-custom"/>
@@ -46,10 +70,10 @@ export default function Index() {
                             </div>
                         </div>
                     </div>
-                    <div className="playground__user"><p className="playground__user-name">Trần Hồng Quân <span className="playground__user-img"><img alt='pt' src="https://scontent-sin6-4.xx.fbcdn.net/v/t1.6435-1/p160x160/79771446_2469549519965437_8172007245870006272_n.jpg?_nc_cat=103&ccb=1-3&_nc_sid=7206a8&_nc_ohc=1ZCd5epk1FMAX_LTrl5&_nc_ht=scontent-sin6-4.xx&tp=6&oh=38f18e8325cd36ea960ec2aa24e015c3&oe=60CB87D2" /></span></p></div>
+                    <div className="playground__user"><p className="playground__user-name">Trần Hồng Quân <span className="playground__user-img"><img alt='pt' src={userIcon} /></span></p></div>
                 </div>
                 <div className="playground__bottom mt-4 ml-4 mr-4">
-                    <TourManagement />
+                    {render()}
                     
                 </div>
             </div>

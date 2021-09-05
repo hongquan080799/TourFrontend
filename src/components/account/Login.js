@@ -1,34 +1,73 @@
-import React from 'react'
+import React,{useState} from 'react'
 import './Login.css'
-import FacebookLogin from 'react-facebook-login';
 import {auth} from '../../firebase'
 import firebase from 'firebase'
+import * as userApi from '../../api/UserApi'
+import { useHistory, Link } from 'react-router-dom'
 export default function Login() {
-    const responseFacebook = (res)=>{
-        console.log({
-            accessToken:res.accessToken,
-            email:res.email,
-            id:res.id,
-            picture:res.picture.data.url,
-            name:res.name
+    const history =  useHistory()
+    const [loginInput,setLoginInput] = useState();
+    // const responseFacebook = (res)=>{
+    //     console.log({
+    //         accessToken:res.accessToken,
+    //         email:res.email,
+    //         id:res.id,
+    //     //    picture:res.picture.data.url,
+    //         name:res.name
+    //     })
+    //     console.log(res)
+    // }
+    const handleChangeLoginInput = (e)=>{
+        const {name,value} = e.target
+        setLoginInput({
+            ...loginInput,
+            [name]:value
         })
     }
-    // const handleLoginFacebook = ()=>{
-    //     window.FB.login(function(response) {
-    //         if (response.authResponse) {
-    //          console.log('Welcome!  Fetching your information.... ');
-    //          window.FB.api('/me', function(response) {
-    //            console.log('Good to see you, ' + response.name + '.');
-    //          });
-    //         } else {
-    //          console.log('User cancelled login or did not fully authorize.');
-    //         }
-    //     });
-    // }
-    const handleLoginGoogle = ()=>{
+    const handleLoginFacebook = async ()=>{
+        window.FB.login(function(response) {
+            if (response.authResponse) {
+             console.log('Welcome!  Fetching your information.... ');
+             window.FB.api('/me', function(response) {
+               console.log('Good to see you, ' + response.name + '.');
+               window.FB.getLoginStatus(res=>{
+                   const token = res.authResponse.accessToken
+                   userApi.getLoginFacebook(token).then(res=>{
+                   window.location.replace('/')
+                })
+                .catch(erro=>{
+                    console.log(erro)
+                })
+               })
+             });
+            } else {
+             console.log('User cancelled login or did not fully authorize.');
+            }
+        });
+    }
+    const submitLogin = async (e)=>{
+        e.preventDefault();
+       try {
+            const response = await userApi.getLogin(loginInput)
+            if(response != null){
+                const user = await userApi.getUser();
+                console.log(user)
+                if(user.quyen === 'KHACHHANG')
+                    window.location.replace('/')
+                else if(user.quyen === 'ADMIN')
+                    window.location.replace('/admin/index')
+            }
+        
+       } catch (error) {
+            window.alert('Login failed')
+       }
+
+    }
+    const handleLoginGoogle = async ()=>{
         var provider = new firebase.auth.GoogleAuthProvider();
         // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
         // auth.languageCode = 'it';
+        provider.addScope('https://www.googleapis.com/auth/userinfo.profile,https://www.googleapis.com/auth/userinfo.email');
         auth
         .signInWithPopup(provider)
         .then((result) => {
@@ -39,7 +78,14 @@ export default function Login() {
             var token = credential.accessToken;
             // The signed-in user info.
             var user = result.user;
-            console.log(user)
+            console.log(token)
+            console.log(credential.idToken)
+            userApi.getLoginGoogle(token).then(res=>{
+                window.location.replace('/')
+            })
+            .catch(erro=>{
+                console.log(erro)
+            })
             // ...
         }).catch((error) => {
             // Handle Errors here.
@@ -61,7 +107,7 @@ export default function Login() {
         })
     }
     return (
-        <div className="myContainer">
+        <div className="myLoginContainer">
             <div className="login-container">
                 <div className="login-container__left">
                     <div className="login-left">
@@ -72,17 +118,22 @@ export default function Login() {
                     </div>
                 </div>
                 <div className="login-container__right">
-                    <form onSubmit={(e)=> e.preventDefault()}>
+                    <form onSubmit={submitLogin}>
                         <p className="login__head">
                             LOGIN
                         </p>
-                        <input type="text" className="form-control" placeholder="Enter your username" />
-                        <input type="password" className="form-control" placeholder="Enter your password" />
-                        <button className="login__button">Login</button>
-                        <button onClick={checkUser} > checkuser</button>
-                        <button onClick={()=>auth.signOut()} > logout</button>
+                        <input type="text" className="form-control" placeholder="Enter your username" name="username" onChange={handleChangeLoginInput} />
+                        <input type="password" className="form-control" placeholder="Enter your password" name="password" onChange={handleChangeLoginInput} />
+                         <button className="login__button" type="submit">Login</button>
+                        {/*<button onClick={checkUser} > checkuser</button>
+                        <button onClick={()=>{
+                             window.FB.logout(function(response){
+                                      console.log("Logged Out!");
+                                      
+                                    });
+                        }} > logout</button> */}
                         <hr/>
-                        <button className="login__button-google" onClick={handleLoginGoogle}>Login with Google</button>
+                        <button className="login__button-google" type="button" onClick={handleLoginGoogle}>Login with Google</button>
                         {/* <button className="login__button-google" onClick={()=>{
                             //  window.FB.getLoginStatus(function(response) {
                             //     window.FB.logout(function(response){
@@ -94,7 +145,7 @@ export default function Login() {
                             //     console.log('Good to see you, ' + response.name + '.');
                             //   });
                         }}>Login with Google</button> */}
-                         {/* <button className="login__button-facebook" onClick={handleLoginFacebook}>Login with Facebook</button> */}
+                         <button className="login__button-facebook" type="button" onClick={handleLoginFacebook}>Login with Facebook</button>
                         {/* <FacebookLogin
                             appId="275950150983487"
                             autoLoad={true}
@@ -105,8 +156,8 @@ export default function Login() {
                         /> */}
                         <hr/>
                         <div className="text-center">
-                            <a href="#" className="custom-link">Create an account</a><br/>
-                            <a href="#" className="custom-link">Forgot password</a>
+                            <Link to="/register" ><p className="custom-link">Create an account</p><br/></Link>
+                            <Link><p className="custom-link">Forgot password</p></Link>
                         </div>
                     </form>
                 </div>

@@ -2,12 +2,12 @@ import firebase from 'firebase'
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-  apiKey: "AIzaSyDCIKah5cKOBbsL_NWbbwpcXXB_afgEr7E",
-  authDomain: "tourdulich-nckh.firebaseapp.com",
-  projectId: "tourdulich-nckh",
-  storageBucket: "tourdulich-nckh.appspot.com",
-  messagingSenderId: "36754695337",
-  appId: "1:36754695337:web:bca32ff2c5e1e0bf0d75b8"
+  apiKey: "AIzaSyD2GZztxgKr8HAUxDQxODRokeDAd33X2TY",
+  authDomain: "tmdt-17064.firebaseapp.com",
+  projectId: "tmdt-17064",
+  storageBucket: "tmdt-17064.appspot.com",
+  messagingSenderId: "38030940951",
+  appId: "1:38030940951:web:ae9ad80cb7fe493e3c3552"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

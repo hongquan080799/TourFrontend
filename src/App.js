@@ -9,6 +9,8 @@ import {BrowserRouter as Router,Route,Switch,useLocation} from 'react-router-dom
 import {useEffect} from 'react'
 import Admin from './components/admin'
 import Login from './components/account/Login'
+import { UserProvider } from './context/UserContext';
+import Register from './components/account/Register';
 function App() {
   function ScrollToTop(props){
     const { pathname } = useLocation();
@@ -19,6 +21,7 @@ function App() {
   }
   return (
     <div className="App">
+      <UserProvider>
       <Router>
         <Switch>
         <ScrollToTop>
@@ -30,6 +33,9 @@ function App() {
             <About />
             <Bottom />
           </Route>
+          <Route path="/register" exact>
+            <Register />
+          </Route>
           <Route path="/detail" exact>
             <Header />
             <Carousel />
@@ -37,7 +43,10 @@ function App() {
             <About />
             <Bottom />
           </Route>
-          <Route path="/admin" exact>
+          <Route path="/admin/:id" exact>
+            <Admin />
+          </Route>
+          <Route path="/admin/:id/:tuyenID" exact>
             <Admin />
           </Route>
           <Route path="/login" exact>
@@ -47,6 +56,7 @@ function App() {
         </ScrollToTop>
         </Switch>
       </Router>
+      </UserProvider>
     </div>
   );
 }

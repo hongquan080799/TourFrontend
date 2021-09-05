@@ -12,6 +12,14 @@
     margin: 0 16px;
 }
 
+.topbar p{
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.topbar p:hover{
+    transform: scale(1.05);
+}
 @media only screen and (max-width: 974px) {
     .topbar__contact p span, .topbar__utils p span{
         display: none;

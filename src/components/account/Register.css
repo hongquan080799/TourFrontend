@@ -1,21 +1,27 @@
-.login-container{
-    width: 46vw;
-    height: 65vh;
+.register-container{
+    width: 60vw;
     display: flex;
+    height: 90vh;
     position: absolute;
-    top:50%;
+    top:60%;
     left: 50%;
     transform: translate(-50%,-60%);
     border-radius: 10px;
-    overflow: hidden;
+    overflow: scroll;
 }
-.login-container__left{
+.myRC{
+    display: flex;
+    width: 100%;
+    height: fit-content;
+}
+.register-container__left{
     background-color: #DFE0E2;
     width: 50%;
     position: relative;
+
 }
 
-.login-left{
+.register-left{
     position: absolute;
     top: 40%;
     left: 50%;
@@ -27,33 +33,39 @@
     letter-spacing: 1.1;
     width: 100%;
 }
-.login-container__left img{
+.register-container__left img{
     margin-bottom: 1rem;
     width: 12rem;
 }
-.login-container__right{
+.register-container__right{
     background-color: white;
-    width: 50%;
+    width: 30%;
     padding: 4rem 2rem;
 }
-.login-container__right input[type=text],.login-container__right input[type=password]{
+.register-container__right input[type=text],.register-container__right input[type=password]{
     border-radius: 30px !important;
    
     padding: 1.5rem 1rem;
     margin-bottom: 1rem;
+}
+.register-container__right select{
+    border-radius: 30px !important;
+    box-sizing: border-box;
+    height: 3rem;
+    margin-bottom: 1rem !important;
 }
 .register-container__right{
     background-color: white;
     width: 70%;
     padding: 4rem 2rem;
 }
-.login__head{
+.register__head{
     text-align: center;
     font-size: 1.4rem;
     color: #0070a9  ;
 }
-.login__button{
-    background-color: #4E73DF;
+.register__button{
+    background-color: #e04242;
     border: none;
     color: white;
     outline: none;
@@ -63,8 +75,8 @@
     font-size: 0.9rem;
     border-radius: 30px;
 }
-.login__button:hover{
-    background-color: #325ddf;
+.register__button:hover{
+    background-color: #df326c;
 }
 .login__button-google{
     background-color: #EA4335;
@@ -91,18 +103,7 @@
     font-size: 0.9rem;
     border-radius: 30px;
 }
-.register__button{
-    background-color: #e04242;
-    border: none;
-    color: white;
-    outline: none;
-    padding: 0.9rem 0;
-    width: 100%;
-    margin-top: .4rem;
-    font-size: 0.9rem;
-    border-radius: 30px;
-    
-}
+
 .login__button-facebook:hover{
     background-color: #2750aa;
 }

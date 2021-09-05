@@ -1,11 +1,14 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState, useEffect} from 'react'
 import {store} from '../../firebase'
 import axios from 'axios'
 import firebase from 'firebase'
+import * as tuyenApi from '../../api/TuyenApi'
+import {useHistory} from 'react-router-dom'
 import './TourManagement.css'
 export default function TourManagement() {
+  const history = useHistory()
   const defalseImg = "https://www.tullamoreshow.com/custom/public/images/.600.360.0.1.t/gallery-10.png"
-  const [open,setOpen] = useState(false)
+  const [open, setOpen] = useState(false)
   const [image,setImage] = useState([])
   const [progress,setProgress] =useState(0)
   const [tuyen,setTuyen] = useState({})
@@ -17,38 +20,28 @@ export default function TourManagement() {
       [name]:value
     })
   }
-  useEffect(()=>{
-    axios.get(process.env.REACT_APP_API + '/tuyen')
-    .then(response =>{
-      setListTuyen(response.data)
-    })
-    .catch(err=>{
-      console.log(err)
-    })
+  useEffect(async()=>{
+    try {
+      const data = await tuyenApi.getListTuyen();
+      console.log(data)
+      await setListTuyen(data)
+    } catch (error) {
+       console.log(error)
+    }
+
   },[])
-  const handleSubmit = ()=>{
+  const handleSubmit = async()=>{
     const photo = image.map(img => ({picture:img}))
     tuyen.photo = photo;
-    axios.post(process.env.REACT_APP_API+"/tuyen",tuyen)
-    .then(response=>{
-      alert('Thêm thành công')
+    try {
+      const response = await tuyenApi.insertTuyen(tuyen)
+      const data = await tuyenApi.getListTuyen();
+      await setListTuyen(data)
+      alert('Thêm tuyến thành công')
       setOpen(false)
-      
-      setImage([])
-      setProgress(0)
-
-      axios.get(process.env.REACT_APP_API + '/tuyen')
-      .then(response =>{
-        setListTuyen(response.data)
-      })
-      .catch(err=>{
-        console.log(err)
-      })
-
-    })
-    .catch(err=>{
-      alert("Thêm thất bại \n" + err)
-    })
+    } catch (error) {
+      alert('Thêm tuyến thất bại !!!')
+    }
   }
   const handleImage = async (e)=>{
   
@@ -155,7 +148,7 @@ export default function TourManagement() {
                       <th scope="col">Tên tuyến</th>
                       <th scope="col">Mô tả</th>
                       <th scope="col">Thời gian</th>
-                      <th scope="col">Hình ảnh</th>
+                      <th scope="col">Xem hình ảnh</th>
                       <th scope="col">Tour</th>
                     </tr>
                   </thead>
@@ -167,8 +160,56 @@ export default function TourManagement() {
                           <td>{t.tentuyen}</td>
                           <td>{t.mota}</td>
                           <td>{t.thoigian}</td>
-                          <td><button className="btn btn-success">Xem hình ảnh</button></td>
-                          <td><button className="btn btn-info">Xem tour</button></td>
+                          <td style={{width:'12%'}}><button className="btn btn-info mr-1" data-toggle="modal" data-target={'#' + t.matuyen}>View</button></td>
+                          <td style={{width:'12%'}}><button className="btn btn-info" onClick={()=> history.push('/admin/tour/' + t.matuyen)}>Xem tour</button></td>
+                          <div className="modal" id={t.matuyen}>
+                              <div className="modal-dialog modal-lg">
+                                  <div className="modal-content">
+
+                                  <div className="modal-header">
+                                      <h3 className="modal-title">{t.tentuyen}</h3>
+                                      <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                  </div>
+
+                                  
+                                  <div className="modal-body px-4">
+                                      <div className="row detail_product_admin px-4">
+                                          <div className="col-12">
+                                            <div id="demo" class="carousel slide" data-ride="carousel">
+                                              <div class="carousel-inner">
+                                                {t.photo?.map((ha,index) =>{
+                                                  return(
+                                                    <div class={ index===1 ? 'carousel-item active' : 'carousel-item'} key={index}>
+                                                      <img src={ha.picture} alt="Los Angeles" style={{width:'100%'}}/>
+                                                    </div>
+                                                  )
+                                                })}
+                                              </div>
+
+                                              <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                                                <span class="carousel-control-prev-icon navigation-icon"></span>
+                                              </a>
+                                              <a class="carousel-control-next" href="#demo" data-slide="next">
+                                                <span class="carousel-control-next-icon navigation-icon"></span>
+                                              </a>
+
+                                            </div>
+                                        </div>
+                                          
+
+                              
+                                      </div>
+                                      </div>
+                                      
+
+                                  
+                                  <div className="modal-footer">
+                                      <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+                                  </div>
+
+                                  </div>
+                              </div>
+                            </div>
                         </tr>
                       )
                     })}
