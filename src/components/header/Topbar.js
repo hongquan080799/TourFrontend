@@ -19,6 +19,7 @@ export default function Topbar() {
     const logout = ()=>{
         window.localStorage.removeItem('jwt')
         setState({})
+        window.location.replace('/')
     }
     return (
         <div className="topbar d-flex justify-content-between align-content-center">

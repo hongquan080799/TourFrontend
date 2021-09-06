@@ -15,6 +15,19 @@ export const getListTuyen =  async()=>{
     }
 }
 
+export const getTuyen =  async(matuyen)=>{
+    const params = {
+        matuyen
+    }
+    const url = "/tuyen/detail"
+    try {
+        const response = await axiosClient.get(url, {params, headers})
+        return response
+    } catch (error) {
+        throw error
+    }
+}
+
 export const insertTuyen =  async(tuyen)=>{
     const url = "/tuyen"
     try {

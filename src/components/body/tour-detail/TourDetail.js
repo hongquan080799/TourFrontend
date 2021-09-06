@@ -1,34 +1,84 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import './TourDetail.css'
+import * as tuyenApi from '../../../api/TuyenApi'
+import { useParams } from 'react-router-dom'
 export default function TourDetail() {
+    const [tuyen, setTuyen] = useState({})
+    const {matuyen} = useParams()
+    const getPrice = ()=>{
+        let price = 0;
+        let i = 0
+        tuyen?.tour?.forEach(value => {
+            price += value.gianguoilon
+            i++
+        });
+        return price/i
+    }
+    useEffect(async ()=>{
+        try {
+            const data = await tuyenApi.getTuyen(matuyen)
+            setTuyen(data)
+        } catch (error) {
+            console.log(error)
+        }
+    },[])
+    const getListKhoihang = ()=>{
+        let data = ''
+        tuyen?.tour?.forEach((value, index) => {
+            if(index == 0)
+                data += value?.tgbd
+            else
+                data += ', ' + value?.tgbd
+        } )
+        return data
+    }
     return (
         <div className="tour-detail">
             <div className="row">
                 <div className="col-12">
                     <p className="tour-detail__header">
-                        DU LỊCH CÔN ĐẢO BẰNG PHÀ TỪ THÀNH PHỐ HỒ CHÍ MINH 
+                        {tuyen?.tentuyen}
                     </p>
                 </div>
                 <div className="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-7">
-                    <img alt="pt" className="tour-detail__img" src="https://www.saigontourist.net/uploads/destination/TrongNuoc/Condao/con-dao-beach.jpg"/>
+                    <div id="quan" class="carousel slide" data-ride="carousel">
+
+
+                        <div class="carousel-inner">
+                            {tuyen?.photo?.map((value, index)=>{
+                                return(
+                                    <div class={index == 0 ?"carousel-item active":"carousel-item"}>
+                                        <img src={value?.picture} alt="Los Angeles" className="w-100" />
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#quan" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#quan" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </a>
+
                 </div>
                 <div className="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-5" >
                    <div className="detail__info">
-                   <p className="detail__info__header">Du lịch côn đảo bằng phà từ thành phố Hồ Chí Minh</p>
+                   <p className="detail__info__header">{tuyen?.tentuyen}</p>
                     <div className="table-responsive">
                     <table className="table">
                       <tbody>
                         <tr>
-                          <td className="detail__info__label">Mã tour</td>
-                          <td className="detail__info__value">15704</td>
+                          <td className="detail__info__label">Mã tuyến</td>
+                          <td className="detail__info__value">{tuyen?.matuyen}</td>
                         </tr>
                         <tr>
                           <td className="detail__info__label">Thời gian</td>
-                          <td className="detail__info__value">6 ngày 5 đêm</td>
+                          <td className="detail__info__value">{tuyen?.thoigian}</td>
                         </tr>
                         <tr>
                           <td className="detail__info__label">Khởi hành</td>
-                          <td className="detail__info__value">03,10,17,24/04 ; 08,15,22/05 </td>
+                          <td className="detail__info__value">{getListKhoihang()} </td>
                         </tr>
                         <tr>
                           <td className="detail__info__label">Vận chuyển</td>
@@ -36,7 +86,7 @@ export default function TourDetail() {
                         </tr>
                         <tr>
                           <td className="detail__info__label">Xuất phát</td>
-                          <td className="detail__info__value">Thành phố Hồ Chí Minh</td>
+                          <td className="detail__info__value">{tuyen?.diadiemxp}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -44,10 +94,10 @@ export default function TourDetail() {
                    </div>
                     <div className="detail__info__price">
                         <div className="detail__info__price-discount">
-                            Giá từ 8,399,000 đ <span className="detail__info__price-raw">8,500,000 đ</span>
+                            Giá từ {getPrice()} đ <span className="detail__info__price-raw">{getPrice()} đ</span>
                         </div>
                         <button className="detail__info_price_btn">
-                            ĐẶT TOUR
+                            LIÊN HỆ
                         </button>
                     </div>
 

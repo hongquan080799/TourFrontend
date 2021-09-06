@@ -36,7 +36,7 @@ function App() {
           <Route path="/register" exact>
             <Register />
           </Route>
-          <Route path="/detail" exact>
+          <Route path="/tuyen/:matuyen" exact>
             <Header />
             <Carousel />
             <TourDetail />

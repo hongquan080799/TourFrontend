@@ -1,10 +1,12 @@
-import React,{useState,useEffect,useRef} from 'react'
+import React,{useState,useEffect,useRef, useContext} from 'react'
 import TourManagement from './TourManagement'
 import TourDetail from './TourDetail'
 import './index.css'
+import {UserContext} from '../../context/UserContext'
 import userIcon from './icon.png'
 import { useParams, useHistory } from 'react-router-dom'
 export default function Index() {
+    const [state, setState] = useContext(UserContext)
     const history = useHistory()
     const {id, tuyenID} = useParams()
     const [on,setOn] = useState(false);
@@ -12,6 +14,11 @@ export default function Index() {
     useEffect(()=>{
         
     },[on])
+    const handleLogout = ()=>{
+        setState({})
+        window.localStorage.removeItem('jwt')
+        window.location.replace('/')
+    }
     const handleOn=()=>{
         setOn(!on);
         slideRef.current.classList.toggle("dashboard-on");
@@ -55,6 +62,9 @@ export default function Index() {
                 </p>
                 <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'}>
                     <span className="dashboard__item-icon"><i class="fas fa-chart-area"></i></span> {!on?'Chart':''}
+                </p>
+                <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'} onClick={handleLogout}>
+                    <span className="dashboard__item-icon"><i class="fas fa-sign-out-alt"></i></span> {!on?'Logout':''}
                 </p>
                 
                 <div className={on?"dashboard__utils-on":'dashboard__utils'} onClick={handleOn}> &#60; </div>

@@ -1,7 +1,17 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import Tour from './Tour'
+import * as tuyenApi from '../../../api/TuyenApi'
 import './ListTour.css'
 export default function ListTour() {
+    const [list, setList] = useState([])
+    useEffect(async()=>{
+        try {
+            const data = await tuyenApi.getListTuyen()
+            setList(data)
+        } catch (error) {
+            console.log(error)
+        }
+    },[])
     return (
         <div className="row list-tour">
             <div className="col-12">
@@ -10,14 +20,11 @@ export default function ListTour() {
                 </p>
             </div>
             <div className="tour-container">
-                <Tour />
-                <Tour />
-                <Tour />
-                <Tour />
-                <Tour />
-                <Tour />
-                <Tour />
-                <Tour />
+               {list.map(tuyen =>{
+                   return (
+                       <Tour tuyen = {tuyen} />
+                   )
+               })}
             </div>
             
         </div>

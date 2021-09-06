@@ -3,7 +3,7 @@ import './Navbar.css'
 export default function Navbar() {
     return (
         <div className="navbar d-flex">
-            <div className="navbar__brand d-flex">
+            <div className="navbar__brand d-flex" onClick={()=> window.location.replace('/')}>
                 <p>HappyTour</p>
                 {/* <img alt="pt" src=""/> */}
                 <p className="ml-2"> 😙</p>

@@ -96,8 +96,8 @@ export default function TourManagement() {
                   <input type="text" className="form-control mb-3" placeholder="Nhập vào đây" name="tentuyen" onChange={handleInputChange} />
 
                   <p className="input-label">Mô tả</p>
-                  <input type="text" className="form-control mb-3" placeholder="Nhập vào đây" name="mota" onChange={handleInputChange} />
-
+                  <textarea className="form-control" rows={3} defaultValue={""} onChange={handleInputChange} name="mota"/>
+      
                   <p className="input-label">Thời gian hành trình</p>
                   <input type="text" className="form-control mb-3" placeholder="Nhập vào đây" name="thoigian" onChange={handleInputChange} />
 
@@ -146,7 +146,6 @@ export default function TourManagement() {
                     <tr>
                       <th scope="col">Mã tuyến</th>
                       <th scope="col">Tên tuyến</th>
-                      <th scope="col">Mô tả</th>
                       <th scope="col">Thời gian</th>
                       <th scope="col">Xem hình ảnh</th>
                       <th scope="col">Tour</th>
@@ -158,7 +157,6 @@ export default function TourManagement() {
                         <tr>
                           <td>{t.matuyen}</td>
                           <td>{t.tentuyen}</td>
-                          <td>{t.mota}</td>
                           <td>{t.thoigian}</td>
                           <td style={{width:'12%'}}><button className="btn btn-info mr-1" data-toggle="modal" data-target={'#' + t.matuyen}>View</button></td>
                           <td style={{width:'12%'}}><button className="btn btn-info" onClick={()=> history.push('/admin/tour/' + t.matuyen)}>Xem tour</button></td>
@@ -174,7 +172,7 @@ export default function TourManagement() {
                                   
                                   <div className="modal-body px-4">
                                       <div className="row detail_product_admin px-4">
-                                          <div className="col-12">
+                                          <div className="col-6">
                                             <div id="demo" class="carousel slide" data-ride="carousel">
                                               <div class="carousel-inner">
                                                 {t.photo?.map((ha,index) =>{
@@ -195,7 +193,10 @@ export default function TourManagement() {
 
                                             </div>
                                         </div>
-                                          
+                                          <div className="col-6">
+                                            <h5>Describe</h5>
+                                            {t.mota}
+                                          </div>
 
                               
                                       </div>
