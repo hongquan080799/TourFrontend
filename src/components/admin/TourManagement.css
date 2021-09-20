@@ -53,3 +53,19 @@
     width: 8rem;
     margin-right: 1.5rem;
 }
+
+.cancelImg{
+    background: tomato;
+    display: inline-block;
+    color:white;
+    padding: 0 7px;
+    border-radius: 20px;
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    transform: translateX(-50%) translateY(-30%)
+}
+.cancelImg:hover{
+    background: rgb(245, 76, 46);
+    cursor: pointer;
+}

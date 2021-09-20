@@ -10,9 +10,10 @@ export default function TourManagement() {
   const defalseImg = "https://www.tullamoreshow.com/custom/public/images/.600.360.0.1.t/gallery-10.png"
   const [open, setOpen] = useState(false)
   const [image,setImage] = useState([])
-  const [progress,setProgress] =useState(0)
   const [tuyen,setTuyen] = useState({})
+  const [progress,setProgress] =useState(0)
   const [listTuyen,setListTuyen] = useState([])
+  const [action, setAction] = useState('insert')
   const handleInputChange= (e)=>{
     const {value,name} = e.target;
     setTuyen({
@@ -33,15 +34,22 @@ export default function TourManagement() {
   const handleSubmit = async()=>{
     const photo = image.map(img => ({picture:img}))
     tuyen.photo = photo;
-    try {
-      const response = await tuyenApi.insertTuyen(tuyen)
-      const data = await tuyenApi.getListTuyen();
-      await setListTuyen(data)
-      alert('Thêm tuyến thành công')
-      setOpen(false)
-    } catch (error) {
-      alert('Thêm tuyến thất bại !!!')
+    if(action === 'create'){
+      try {
+        const response = await tuyenApi.insertTuyen(tuyen)
+        const data = await tuyenApi.getListTuyen();
+        await setListTuyen(data)
+        alert('Thêm tuyến thành công')
+        setOpen(false)
+      } catch (error) {
+        alert('Thêm tuyến thất bại !!!')
+      }
     }
+    if(action === 'update'){
+
+    }
+    setAction('create')
+
   }
   const handleImage = async (e)=>{
   
@@ -77,6 +85,17 @@ export default function TourManagement() {
     
    // console.log(image)
 }
+    const closeImage = (myImg)=>{
+      const myImage = image;
+      setImage(myImage.filter((value,index) => {return value != myImg}))
+      setProgress(0)
+    }
+    const updateTuyen = (t)=>{
+      setOpen(true)
+      setTuyen(t)
+      setImage(t?.photo?.map(p => p.picture))
+      setAction('update')
+    }
     return (
         <div className="tourmn">
             {open?
@@ -86,20 +105,20 @@ export default function TourManagement() {
                   <p className="form-input__head">
                     Nhập thông tin tuyến
                   </p>
-                  <p onClick={()=> setOpen(false)}>X</p>
+                  <p onClick={()=> {setOpen(false); setAction('create'); setTuyen({}); setImage({})}}>X</p>
                 </div>
                 <div className="card-body">
                   <p className="input-label">Mã tuyến</p>
-                  <input type="text" className="form-control mb-3" placeholder="Nhập vào đây" name="matuyen" onChange={handleInputChange} />
+                  <input type="text" className="form-control mb-3" placeholder="Nhập vào đây" value={tuyen?.matuyen} name="matuyen" onChange={handleInputChange} />
 
                   <p className="input-label">Tên tuyến</p>
-                  <input type="text" className="form-control mb-3" placeholder="Nhập vào đây" name="tentuyen" onChange={handleInputChange} />
+                  <input type="text" className="form-control mb-3" placeholder="Nhập vào đây" value={tuyen?.tentuyen} name="tentuyen" onChange={handleInputChange} />
 
                   <p className="input-label">Mô tả</p>
-                  <textarea className="form-control" rows={3} defaultValue={""} onChange={handleInputChange} name="mota"/>
+                  <textarea className="form-control" rows={3} defaultValue={""} value={tuyen?.mota} onChange={handleInputChange} name="mota"/>
       
                   <p className="input-label">Thời gian hành trình</p>
-                  <input type="text" className="form-control mb-3" placeholder="Nhập vào đây" name="thoigian" onChange={handleInputChange} />
+                  <input type="text" className="form-control mb-3" placeholder="Nhập vào đây" value={tuyen?.thoigian} name="thoigian" onChange={handleInputChange} />
 
                   <p className="input-label">Hình ảnh</p>
                   <div className="progress mt-3" style={{height:14,width:'20vw'}}>
@@ -120,6 +139,7 @@ export default function TourManagement() {
                     {image.map(img=>{
                       return(
                         <div className="col-12 col-sm-12 col-md-4 col-lg-3 text-center">
+                          <p className="cancelImg" onClick={() => closeImage(img)}>x</p>
                           <img alt="pt" src={img} className="input-img mb-4" />
                         </div>  
                       )
@@ -154,7 +174,7 @@ export default function TourManagement() {
                   <tbody>
                     {listTuyen.map(t=>{
                       return(
-                        <tr>
+                        <tr onDoubleClick={()=> updateTuyen(t)} >
                           <td>{t.matuyen}</td>
                           <td>{t.tentuyen}</td>
                           <td>{t.thoigian}</td>
@@ -173,21 +193,21 @@ export default function TourManagement() {
                                   <div className="modal-body px-4">
                                       <div className="row detail_product_admin px-4">
                                           <div className="col-6">
-                                            <div id="demo" class="carousel slide" data-ride="carousel">
+                                            <div id={'t'+t.matuyen} class="carousel slide" data-ride="carousel">
                                               <div class="carousel-inner">
                                                 {t.photo?.map((ha,index) =>{
                                                   return(
-                                                    <div class={ index===1 ? 'carousel-item active' : 'carousel-item'} key={index}>
+                                                    <div class={ index===0 ? 'carousel-item active' : 'carousel-item'} key={index}>
                                                       <img src={ha.picture} alt="Los Angeles" style={{width:'100%'}}/>
                                                     </div>
                                                   )
                                                 })}
                                               </div>
 
-                                              <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                                              <a class="carousel-control-prev" href={"#t"+t.matuyen } data-slide="prev">
                                                 <span class="carousel-control-prev-icon navigation-icon"></span>
                                               </a>
-                                              <a class="carousel-control-next" href="#demo" data-slide="next">
+                                              <a class="carousel-control-next" href={"#t"+t.matuyen } data-slide="next">
                                                 <span class="carousel-control-next-icon navigation-icon"></span>
                                               </a>
 

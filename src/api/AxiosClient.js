@@ -14,7 +14,7 @@ axiosClient.interceptors.response.use( response=>{
         return response.data;
     return response
 },error=>{
-    throw error
+    return Promise.reject(error.response)
 })
 
 export default axiosClient

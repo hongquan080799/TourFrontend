@@ -32,6 +32,7 @@ export default function Login() {
                console.log('Good to see you, ' + response.name + '.');
                window.FB.getLoginStatus(res=>{
                    const token = res.authResponse.accessToken
+                   console.log(token)
                    userApi.getLoginFacebook(token).then(res=>{
                    window.location.replace('/')
                 })

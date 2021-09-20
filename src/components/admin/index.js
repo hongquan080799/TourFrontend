@@ -5,6 +5,7 @@ import './index.css'
 import {UserContext} from '../../context/UserContext'
 import userIcon from './icon.png'
 import { useParams, useHistory } from 'react-router-dom'
+import NhanvienManagement from './NhanvienManagement'
 export default function Index() {
     const [state, setState] = useContext(UserContext)
     const history = useHistory()
@@ -38,6 +39,9 @@ export default function Index() {
                 page = <TourDetail matuyen = {tuyenID} />
                 break;
             }
+            case 'nhanvien':{
+                page = <NhanvienManagement />
+            }
             
         }
         return page
@@ -54,7 +58,7 @@ export default function Index() {
                 <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'}>
                     <span className="dashboard__item-icon"><i class="fas fa-user"></i></span> {!on?'User Management':''}
                 </p>
-                <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'}>
+                <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'} onClick={()=> history.push('/admin/nhanvien')}>
                     <span className="dashboard__item-icon"><i class="fas fa-user-friends"></i></span> {!on?'Employee Management':''}
                 </p>
                 <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'}>
