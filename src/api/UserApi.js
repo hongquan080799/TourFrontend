@@ -78,3 +78,25 @@ export const getRegister = async (register)=>{
         throw error
     }
 }
+export const changePassword = async (password) =>{
+    const url = "/taikhoan/changePassword";
+    const data = {
+        username:'',
+        password
+    }
+    try {
+        const response = await axiosClient.put(url, data, {headers})
+        return response
+    } catch (error) {
+        throw error
+    }
+}
+export const updateAccount = async (userUpdate) =>{
+    const url = "/taikhoan"
+    try {
+        const response = await axiosClient.put(url, userUpdate, {headers})
+        return response
+    } catch (error) {
+        throw error
+    }
+}

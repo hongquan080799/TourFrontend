@@ -1,9 +1,10 @@
+
 .topbar{
-    background-color: #3C91E6;
-    color: lightyellow;
+    background-color: rgba(60, 145, 230, 0.5);
+    color: rgb(219, 219, 219 , 1);
     height: 6vh;
     font-size: 1.1vw;
-    opacity: 0.7;
+    
     line-height: 6vh;
     position: relative;
     padding: 0 8vw;
@@ -11,7 +12,6 @@
 .topbar__contact p, .topbar__utils p{
     margin: 0 16px;
 }
-
 .topbar p{
     cursor: pointer;
     transition: all 0.3s;
@@ -20,6 +20,7 @@
 .topbar p:hover{
     transform: scale(1.05);
 }
+
 @media only screen and (max-width: 974px) {
     .topbar__contact p span, .topbar__utils p span{
         display: none;

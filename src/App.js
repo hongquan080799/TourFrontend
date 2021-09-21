@@ -10,6 +10,7 @@ import {useEffect} from 'react'
 import Admin from './components/admin'
 import Login from './components/account/Login'
 import { UserProvider } from './context/UserContext';
+import ViewAccount from './components/account/ViewAccount';
 import Register from './components/account/Register';
 function App() {
   function ScrollToTop(props){
@@ -31,6 +32,12 @@ function App() {
             <ListTour />
             {/* <TourDetail /> */}
             <About />
+            <Bottom />
+          </Route>
+          <Route path="/ViewAccount" exact>
+            <Header />
+            <Carousel />
+            <ViewAccount />
             <Bottom />
           </Route>
           <Route path="/register" exact>
