@@ -7,6 +7,10 @@ import userIcon from './icon.png'
 import { useParams, useHistory } from 'react-router-dom'
 import NhanvienManagement from './NhanvienManagement'
 import KhachhangManagement from './KhachhangManagement'
+import DiadiemManagement from './DiadiemManagement'
+import KhachsanManagement from './KhachsanManagement'
+import PhuongtienManagement from './PhuongtienManagement'
+import NhahangManagement from './NhahangManagement'
 export default function Index() {
     const [state, setState] = useContext(UserContext)
     const history = useHistory()
@@ -48,7 +52,22 @@ export default function Index() {
                 page = <KhachhangManagement />
                 break;
             }
-            
+            case 'phuongtien':{
+                page = <PhuongtienManagement />
+                break;
+            }
+            case 'diadiem':{
+                page = <DiadiemManagement />
+                break;
+            }
+            case 'khachsan':{
+                page = <KhachsanManagement />
+                break
+            }
+            case 'nhahang':{
+                page = <NhahangManagement />
+                break
+            }
         }
         return page
     }
@@ -66,6 +85,18 @@ export default function Index() {
                 </p>
                 <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'} onClick={()=> history.push('/admin/nhanvien')}>
                     <span className="dashboard__item-icon"><i class="fas fa-user-friends"></i></span> {!on?'Employee Management':''}
+                </p>
+                <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'} onClick={()=> history.push('/admin/phuongtien')}>
+                    <span className="dashboard__item-icon"><i class="fas fa-bus-alt"></i></span> {!on?'Tranportation':''}
+                </p>
+                <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'} onClick={()=> history.push('/admin/diadiem')}>
+                    <span className="dashboard__item-icon"><i class="fas fa-search-location"></i></span> {!on?'Location':''}
+                </p>
+                <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'} onClick={()=> history.push('/admin/khachsan')}>
+                    <span className="dashboard__item-icon"><i class="fas fa-hotel"></i></span> {!on?'Hotel':''}
+                </p>
+                <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'} onClick={()=> history.push('/admin/nhahang')}>
+                    <span className="dashboard__item-icon"><i class="fas fa-utensils"></i></span> {!on?'Restaurent':''}
                 </p>
                 <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'}>
                     <span className="dashboard__item-icon"><i class="fas fa-wallet"></i></span> {!on?'Tour Order':''}
