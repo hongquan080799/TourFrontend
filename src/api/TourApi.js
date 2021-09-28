@@ -18,10 +18,13 @@ export const getListTour = async(matuyen)=>{
     }
 }
 
-export const insertTour = async(tour)=>{
+export const insertTour = async(tour, matuyen)=>{
     const url = '/tour'
+    const params = {
+        matuyen
+    }
     try {
-        const response = await axiosClient.post(url, tour, {headers})
+        const response = await axiosClient.post(url, tour, {headers, params})
         return response
     } catch (error) {
         throw error
@@ -45,6 +48,26 @@ export const updateTour = async(tour)=>{
     const url = '/tour'
     try {
         const response = await axiosClient.put(url, tour, {headers})
+        return response
+    } catch (error) {
+        throw error
+    }
+}
+
+export const getTourById = async(matour)=>{
+    const url = `/tour/${matour}`
+    try {
+        const response = await axiosClient.get(url, {headers})
+        return response
+    } catch (error) {
+        throw error
+    }
+}
+
+export const dattour = async(dattour)=>{
+    const url = "/dattour"
+    try {
+        const response = await axiosClient.post(url, dattour, {headers})
         return response
     } catch (error) {
         throw error

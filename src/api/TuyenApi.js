@@ -38,6 +38,16 @@ export const insertTuyen =  async(tuyen)=>{
     }
 }
 
+export const updateTuyen =  async(tuyen)=>{
+    const url = "/tuyen"
+    try {
+        const response = await axiosClient.put(url, tuyen, {headers})
+        return response
+    } catch (error) {
+        throw error
+    }
+}
+
 export const getTourByTuyen = async (matuyen) =>{
     const url = "/tour"
     const params = {

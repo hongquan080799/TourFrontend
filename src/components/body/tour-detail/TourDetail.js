@@ -1,8 +1,9 @@
 import React,{useEffect, useState} from 'react'
 import './TourDetail.css'
 import * as tuyenApi from '../../../api/TuyenApi'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 export default function TourDetail() {
+    const history = useHistory()
     const [tuyen, setTuyen] = useState({})
     const {matuyen} = useParams()
     const getPrice = ()=>{
@@ -92,6 +93,7 @@ export default function TourDetail() {
                     </table>
                     </div>
                    </div>
+                   {!isNaN(getPrice()) ?
                     <div className="detail__info__price">
                         <div className="detail__info__price-discount">
                             Giá từ {getPrice()} đ <span className="detail__info__price-raw">{getPrice()} đ</span>
@@ -99,39 +101,52 @@ export default function TourDetail() {
                         <button className="detail__info_price_btn">
                             LIÊN HỆ
                         </button>
-                    </div>
+                    </div> :'' }
 
                 </div>
-                <div className="detail__info__describe">
-                    <p className="detail__info__describe__header">
-                        Chi tiết hành trình
-                    </p>
-                    <p className="detail__info__describe__body">
-                    Miền Bắc là nơi khởi nguồn văn hóa ngàn năm văn hiến của dân tộc Việt Nam.
-                     Du lịch miền Bắc du khách sẽ được khám phá những thắng cảnh thiên nhiên đẹp
-                      mê hồn cùng nhiều công trình kiến trúc ấn tượng được tạo nên bởi bàn tay khéo
-                       léo của con người. Điểm du lịch Tràng An là nơi du khách sẽ được khám phá một
-                        trong những địa điểm du lịch đẹp nhất Ninh Bình. Tạo hóa đã vô cùng ưu ái ban tặng
-                         cho nơi đây một cảnh quan thiên nhiên tuyệt đẹp với các dãy núi uốn lượn bao quanh 
-                         các dòng Suối nước tự nhiên, tạo nên vô vàn các hang động kỳ ảo, huyền bí.... Cùng Du Lịch Việt
-                          khám phá những địa điểm du lịch miền bắc hấp dẫn nhất như Hà Nội - Yên Tử - Hạ Long - Chùa Bái Đính - 
-                          Tràng An - Sapa - Bản Cát Cát - Đỉnh Fansipan,... để bắt đầu lên kế hoạch cho chuyến du lịch ngay nhé!
-                    </p>
+                <div className="mt-4 col-12 detail__info__describe">
+                    <h5 className="detail__info__describe__header">Danh sách tour</h5>
+                    <div className="table-responsive">
+                    <table className="table table-sm table-hover mt-2">
+                      <thead>
+                        <tr>
+                          <th scope="col">Khởi hàng</th>
+                          <th scope="col">Mã tour</th>
+                          <th scope="col">Giá người lớn</th>
+                          <th scope="col">Giá trẻ em</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {tuyen?.tour?.map(t =>{
+                            return(
+                                <tr>
+                                    <td>{t?.tgbd}</td>
+                                    <td>{t?.matour}</td>
+                                    <td>{t?.gianguoilon} $</td>
+                                    <td>{t?.giatreem} $</td>
+                                    <td><button className="btn btn-info" onClick={()=> history.push('/dattour/' + t?.matour)}>Đặt tour</button></td>
+                                </tr>
+                            )
+                        })}
+                      </tbody>
+                    </table>
+                    </div>
+                    
+                    
                 </div>
-                <div className="detail__info__schedule">
-                    <p className="detail__info__schedule__header">
+                <div className="mt-4 col-12">
+                    <h5>
                         Chi tiết hành trình
-                    </p>
-                    <p className="detail__info__schedule__body">
-                    Miền Bắc là nơi khởi nguồn văn hóa ngàn năm văn hiến của dân tộc Việt Nam.
-                     Du lịch miền Bắc du khách sẽ được khám phá những thắng cảnh thiên nhiên đẹp
-                      mê hồn cùng nhiều công trình kiến trúc ấn tượng được tạo nên bởi bàn tay khéo
-                       léo của con người. Điểm du lịch Tràng An là nơi du khách sẽ được khám phá một
-                        trong những địa điểm du lịch đẹp nhất Ninh Bình. Tạo hóa đã vô cùng ưu ái ban tặng
-                         cho nơi đây một cảnh quan thiên nhiên tuyệt đẹp với các dãy núi uốn lượn bao quanh 
-                         các dòng Suối nước tự nhiên, tạo nên vô vàn các hang động kỳ ảo, huyền bí.... Cùng Du Lịch Việt
-                          khám phá những địa điểm du lịch miền bắc hấp dẫn nhất như Hà Nội - Yên Tử - Hạ Long - Chùa Bái Đính - 
-                          Tràng An - Sapa - Bản Cát Cát - Đỉnh Fansipan,... để bắt đầu lên kế hoạch cho chuyến du lịch ngay nhé!
+                    </h5>
+                    <p >
+                    {tuyen?.lichtrinh?.map(lt =>{
+                        return (
+                            <div>
+                                {lt?.mota}
+                            </div>
+                        )
+                    })}
                     </p>
                 </div>
             </div>

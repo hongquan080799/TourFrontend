@@ -84,3 +84,29 @@
         margin-top: 30px;
     }
 }
+
+.tour-info {
+    width: 400px;
+    box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.2), 2px 6px 20px 0 rgba(0, 0, 0, 0.19);
+}   
+
+.tour-info img{
+    width: 100%;
+}
+.tour-info .text{
+    padding: 40px 20px;
+}
+.dattour{
+    margin-top: 20px;
+    width: 100%;
+    border: none;
+    background-color: rgb(55, 102, 245);
+    color: white;
+    padding: 10px 0;
+    box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.2), 2px 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: all 0.3s;
+}
+.dattour:hover{
+    background-color: rgb(0, 49, 195);
+    transform: scale(1.05);
+}
