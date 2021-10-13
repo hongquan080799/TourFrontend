@@ -11,6 +11,7 @@ import DiadiemManagement from './DiadiemManagement'
 import KhachsanManagement from './KhachsanManagement'
 import PhuongtienManagement from './PhuongtienManagement'
 import NhahangManagement from './NhahangManagement'
+import TourListOrderMn from './TourListOrderMn'
 export default function Index() {
     const [state, setState] = useContext(UserContext)
     const history = useHistory()
@@ -68,6 +69,10 @@ export default function Index() {
                 page = <NhahangManagement />
                 break
             }
+            case 'tourorder':{
+                page = <TourListOrderMn />
+                break
+            }
         }
         return page
     }
@@ -98,7 +103,7 @@ export default function Index() {
                 <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'} onClick={()=> history.push('/admin/nhahang')}>
                     <span className="dashboard__item-icon"><i class="fas fa-utensils"></i></span> {!on?'Restaurent':''}
                 </p>
-                <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'}>
+                <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'}onClick={()=> history.push('/admin/tourorder')}>
                     <span className="dashboard__item-icon"><i class="fas fa-wallet"></i></span> {!on?'Tour Order':''}
                 </p>
                 <p className={on?'dashboard__item dashboard__item-on':'dashboard__item'}>

@@ -52,16 +52,15 @@ export default function OrderTour() {
         //         }
         //     }
         // }
-        
-        setThamgias(
-            list.map((valu, ind) =>{
+        const kk = list.map((valu, ind) =>{
             if(index == ind)
             return {
                 ...valu,
                 [name]: value
             }
-            else return value
-        }))
+            else return {...valu}
+        })
+        setThamgias(kk)
     }
     const handleDattour = async()=>{
         if(state?.user == null){
@@ -73,14 +72,16 @@ export default function OrderTour() {
             trangthai : 1,
             httt : 1,
             soluong : thamgias?.length,
-            thamgias
+            thamgias,
+            thoigian : ''
         }
 
 
         try {
+            console.log(dattour)
             const res = await tourApi.dattour(dattour)
             alert('Đặt tour thành công !!!')
-            window.location.replace('/')
+           // window.location.replace('/')
         } catch (error) {
             alert('Đặt tour thất bại !!!')
         }

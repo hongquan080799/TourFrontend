@@ -73,3 +73,24 @@ export const dattour = async(dattour)=>{
         throw error
     }
 }
+
+export const getListDatourByUser = async()=>{
+    const url = "/dattour/self"
+    try {
+        const res = await axiosClient.get(url, {headers})
+        return res
+    } catch (error) {
+        throw error
+    }
+}
+
+
+export const getListDatour = async()=>{
+    const url = "/dattour"
+    try {
+        const res = await axiosClient.get(url, {headers})
+        return res
+    } catch (error) {
+        throw error
+    }
+}

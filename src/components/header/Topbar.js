@@ -34,6 +34,9 @@ export default function Topbar() {
                 }
                 <p><i className="fas fa-bell"></i> <span>Notification</span></p>
                 {state?.user != null?
+                    <p onClick={()=> history.push('/ListTourOrder')}><i class="fas fa-clipboard-list"></i> <span>View tour order</span></p>:''
+                }
+                {state?.user != null?
                     <p onClick={logout}><i className="fas fa-sign-in-alt" ></i> <span>Logout</span></p>:''
                 }
             </div>

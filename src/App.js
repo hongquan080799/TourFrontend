@@ -13,6 +13,7 @@ import { UserProvider } from './context/UserContext';
 import ViewAccount from './components/account/ViewAccount';
 import Register from './components/account/Register';
 import OrderTour from './components/body/tour-detail/OrderTour'
+import ListTourOrder from './components/account/ListTourOrder';
 function App() {
   function ScrollToTop(props){
     const { pathname } = useLocation();
@@ -39,6 +40,12 @@ function App() {
             <Header />
             <Carousel />
             <ViewAccount />
+            <Bottom />
+          </Route>
+          <Route path="/ListTourOrder" exact>
+            <Header />
+            <Carousel />
+            <ListTourOrder />
             <Bottom />
           </Route>
           <Route path="/register" exact>
