@@ -96,7 +96,7 @@ export default function TourDetail() {
                    {!isNaN(getPrice()) ?
                     <div className="detail__info__price">
                         <div className="detail__info__price-discount">
-                            Giá {getPrice()} đ <span className="detail__info__price-raw">{getPrice().toFixed(2)} đ</span>
+                            Giá {getPrice()} $ <span className="detail__info__price-raw">{getPrice().toFixed(2)} $</span>
                         </div>
                         <button className="detail__info_price_btn">
                             LIÊN HỆ

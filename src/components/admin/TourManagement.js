@@ -306,7 +306,7 @@ export default function TourManagement() {
                   <p className="input-label">Thời gian hành trình</p>
                   <input type="text" className="form-control mb-3" placeholder="Nhập vào đây" value={tuyen?.thoigian} name="thoigian" onChange={handleInputChange} />
                   <p className="input-label">Dịa điểm xuất phát</p>
-                  <input type="text" className="form-control mb-3" placeholder="Nhập vào đây" value={tuyen?.thoigian} name="diadiemxp" onChange={handleInputChange} />
+                  <input type="text" className="form-control mb-3" placeholder="Nhập vào đây" value={tuyen?.diadiemxp} name="diadiemxp" onChange={handleInputChange} />
                   {action == 'update'?
                     <div>
                       <p className="input-label">Khách sạn</p>

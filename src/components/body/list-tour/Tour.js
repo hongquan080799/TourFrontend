@@ -20,7 +20,7 @@ export default function Tour({tuyen}) {
                 <p>Schedule : {tuyen?.thoigian}</p>
                 <p>Avalable : {tuyen?.tour?.length} </p>
             </div>
-            {isNaN(getPrice())?'':<p className="tour__price">{getPrice().toFixed(2)} đ <span className="tour__price-not-discount">{getPrice().toFixed(2)} đ</span></p>} 
+            {isNaN(getPrice())?'':<p className="tour__price">{getPrice().toFixed(2)} $ <span className="tour__price-not-discount">{getPrice().toFixed(2)} $</span></p>} 
             
         </div>
     )
