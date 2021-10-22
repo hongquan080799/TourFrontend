@@ -58,7 +58,7 @@ export default function ListTourOrder() {
                                             <th scope="col">Số điện thoại</th>
                                             <th scope="col">Địa chỉ</th>
                                             <th scope="col">Email</th>
-                                            <th scope="col">Giới tính</th>
+                                            {/* <th scope="col">Giới tính</th> */}
                                           </tr>
                                         </thead>
                                         <tbody>
@@ -70,7 +70,7 @@ export default function ListTourOrder() {
                                                     <td>{kh?.sdt}</td>
                                                     <td>{kh?.diachi}</td>
                                                     <td>{kh?.email}</td>
-                                                    <td>{kh?.giotinh == 1 ? 'Nam' : 'Nữ'}</td>
+                                                    {/* <td>{kh?.giotinh == 1 ? 'Nam' : 'Nữ'}</td> */}
                                               </tr>
                                               )
                                           })}

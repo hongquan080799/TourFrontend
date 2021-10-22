@@ -96,7 +96,7 @@ export default function TourDetail() {
                    {!isNaN(getPrice()) ?
                     <div className="detail__info__price">
                         <div className="detail__info__price-discount">
-                            Giá từ {getPrice()} đ <span className="detail__info__price-raw">{getPrice()} đ</span>
+                            Giá {getPrice()} đ <span className="detail__info__price-raw">{getPrice().toFixed(2)} đ</span>
                         </div>
                         <button className="detail__info_price_btn">
                             LIÊN HỆ
@@ -119,6 +119,7 @@ export default function TourDetail() {
                       </thead>
                       <tbody>
                         {tuyen?.tour?.map(t =>{
+                            if(new Date(t?.tgbd) >= new Date())
                             return(
                                 <tr>
                                     <td>{t?.tgbd}</td>
