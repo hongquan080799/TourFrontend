@@ -101,7 +101,7 @@ export default function OrderTour() {
                         return (
                             <div style={{marginTop:40}}>
                                 <h4>Thông tin khách {index + 1} ({valu?.loaive == 1 ? 'Người lớn' : 'Trẻ em'})</h4>
-                                <input type="text" className="form-control mb-2 mr-sm-2" placeholder="CMND/CCCD" value={valu?.cmnd} name="cmnd" onChange={(e)=> handleChangeInput(e, index)} />
+                                {valu?.loaive == 1 ?<input type="text" className="form-control mb-2 mr-sm-2" placeholder="CMND/CCCD" value={valu?.cmnd} name="cmnd" onChange={(e)=> handleChangeInput(e, index)} /> :''}
                                 <input type="text" className="form-control mb-2 mr-sm-2" placeholder="Họ và tên" value={valu?.name} name="name" onChange={(e)=> handleChangeInput(e, index)}/>
                                 <input type="text" className="form-control mb-2 mr-sm-2" placeholder="Số điện thoại" value={valu?.sdt} name="sdt" onChange={(e)=> handleChangeInput(e, index)}/>
                                 <input type="text" className="form-control mb-2 mr-sm-2" placeholder="Email" value={valu?.email} name="email" onChange={(e)=> handleChangeInput(e, index)}/>
